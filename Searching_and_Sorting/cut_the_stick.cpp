@@ -25,47 +25,29 @@ void fastIO()
   cout.tie(0);
 }
 
-int minimumPos(vi &v, int startIdx)
-{
-  int min = startIdx;
-  for (int i = startIdx + 1; i < v.size(); i++)
-    if (v[i] < v[min])
-      min = i;
-  return min;
-}
-
-void update(vi &v, int startIdx, int min)
-{
-  int count = 0;
-  for (int i = startIdx; i < v.size(); i++)
-    if (v[i] >= min and v[i] != 0)
-      v[i] -= min, count++;
-  cout << count << endl;
-}
-
-int swapped(vi &v, int startIdx)
-{
-  int count = 0;
-  for (int i = startIdx; i < v.size(); i++)
-    if (v[i] == 0)
-      swap(v[i], v[startIdx + count]), count++;
-  return count + startIdx;
-}
-
 void solve()
 {
   int n;
   cin >> n;
   vi v;
+  map<int, int> m;
   for (int i = 0; i < n; i++)
   {
     int val;
     cin >> val;
     v.eb(val);
+    if (m.find(val) != m.end())
+      m[val] += 1;
+    else
+      m.insert(make_pair(val, 1));
   }
 
-  for (int i = 0; i < n; i++)
-    update(v, i, v[minimumPos(v, i)]), i = swapped(v, i) - 1;
+  int count = 0;
+  for (auto i : m)
+  {
+    cout << v.size() - count << endl;
+    count += i.second;
+  }
 }
 
 int32_t main()
