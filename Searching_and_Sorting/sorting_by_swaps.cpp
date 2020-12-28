@@ -1,3 +1,5 @@
+//Sorting by Swaps Problem Code: SSWK01A
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -45,7 +47,7 @@ int merge(const vector<int> &first, const vector<int> &second, vector<int> &fina
   return count;
 }
 
-int countNumberOfInversions(vector<int> &v)
+int countNumberOfSwaps(vector<int> &v)
 {
   if (v.size() <= 1)
     return 0;
@@ -53,7 +55,7 @@ int countNumberOfInversions(vector<int> &v)
   vector<int> left(v.begin(), v.begin() + (v.size() / 2));
   vector<int> right(v.begin() + (v.size() / 2), v.end());
 
-  return countNumberOfInversions(left) + countNumberOfInversions(right) + merge(left, right, v);
+  return countNumberOfSwaps(left) + countNumberOfSwaps(right) + merge(left, right, v);
 }
 
 int32_t main()
@@ -70,7 +72,7 @@ int32_t main()
       cin >> val;
       v[i] = val;
     }
-    cout << countNumberOfInversions(v) << "\n";
+    cout << countNumberOfSwaps(v) << "\n";
   }
   return 0;
 }
